@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "294128169264",
+    "firebase_url": "https://eqdata-e94aa.firebaseio.com",
+    "project_id": "eqdata-e94aa",
+    "storage_bucket": "eqdata-e94aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294128169264:android:730234e1faf3fa4b",
+        "android_client_info": {
+          "package_name": "com.example.dos_thesis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294128169264-sias5i7eh67o85iskthk07lomhop7nsn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dos_thesis",
+            "certificate_hash": "9bc6cb544e079ce5a08ab71a81ba06dbacdc0153"
+          }
+        },
+        {
+          "client_id": "294128169264-sbldf42s542c0q9p075d6qd5atb2j5hi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANGecY2m3wrNZHmkurEeVsSNpHoodzC8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294128169264-sbldf42s542c0q9p075d6qd5atb2j5hi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
