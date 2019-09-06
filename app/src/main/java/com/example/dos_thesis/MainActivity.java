@@ -2,107 +2,58 @@ package com.example.dos_thesis;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
-    /*private TextView mTextView;
-    private Button mButton;
-    private EditText mEditText;*/
-
-    /*
-    // Firebase variables
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mDataBaseRef;*/
-
-    private List<ListData> listData;
+  // Firebase variables
+    /*private List<ListData> lData;
     private RecyclerView rv;
-    private MyAdapter adapter;
+    private MyAdapter adapter;*/
 
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        rv = findViewById(R.id.recyclerview);
-        rv.setHasFixedSize(true);
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+
+        /*rv = findViewById(R.id.recycle_view);
+        rv.setHasFixedSize(false);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        listData = new ArrayList<>();
 
-        final DatabaseReference nm = FirebaseDatabase.getInstance().getReference().child("data");
-
-        nm.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    for(DataSnapshot mySnap : dataSnapshot.getChildren()) {
-                        ListData l = mySnap.getValue(ListData.class);
-                        listData.add(l);
-                    }
-                    rv.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-
-        /*
-        // Initialize the views
-        mTextView = findViewById(R.id.textView);
-        mButton = findViewById(R.id.button);
-        mEditText = findViewById(R.id.editText);
-
-        // Initialize the Firebase Realtime Databse variables
-        mDatabase = FirebaseDatabase.getInstance();
-        mDataBaseRef = mDatabase.getReference().child("test");
-
-        // Set the onClickListener
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String s = mEditText.getText().toString();
-
-                mDataBaseRef.setValue(s);
-            }
-        });
-
-        // Database listener
-        mDataBaseRef.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseRef = mDatabase.getReference().child("data");
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String s = dataSnapshot.getValue(String.class);
+                lData = new ArrayList<>();
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
+                        ListData l = npsnapshot.getValue(ListData.class);
+                        lData.add(l);
+                    }
+                }
 
-                setTextView(s);
+                adapter = new MyAdapter(lData);
+                rv.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                setTextView(databaseError.toString());
+
             }
         });*/
 
+
+
     }
 
-    /*private void setTextView(String s) {
-        mTextView.setText(s);
-    }*/
-
 }
+

@@ -19,32 +19,47 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public com.example.dos_thesis.MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_data,parent,false);
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ListData ld = listData.get(position);
-        holder.txtDate.setText(ld.getDatetime());
-        holder.txtLoc.setText(ld.getLocation());
-        holder.txtMag.setText(ld.getMagnitude());
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        private TextView txtDate, txtLatitude, txtLocation, txtLongitude, txtMagnitude;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            txtDate = itemView.findViewById(R.id.datetimeTxt);
+            txtLatitude = itemView.findViewById(R.id.latitudeTxt);
+            txtLocation= itemView.findViewById(R.id.locationTxt);
+            txtLongitude = itemView.findViewById(R.id.longitudeTxt);
+            txtMagnitude = itemView.findViewById(R.id.magnitudeTxt);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return listData.size();
-    }
+        int a;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtDate, txtLoc, txtMag;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            txtDate = itemView.findViewById(R.id.dateTxt);
-            txtLoc = itemView.findViewById(R.id.locTxt);
-            txtMag = itemView.findViewById(R.id.magTxt);
+        if(listData != null && !listData.isEmpty()) {
+            a = listData.size();
         }
+        else {
+            a = 0;
+        }
+
+        return a;
     }
+
+    @Override
+    public void onBindViewHolder(@NonNull com.example.dos_thesis.MyAdapter.ViewHolder holder, int position) {
+        ListData ld = listData.get(position);
+        holder.txtDate.setText(ld.getDatetime());
+        holder.txtLatitude.setText(ld.getLatitude());
+        holder.txtLocation.setText(ld.getLocation());
+        holder.txtLongitude.setText(ld.getLongitude());
+        holder.txtMagnitude.setText(ld.getMagnitude());
+    }
+
 }
