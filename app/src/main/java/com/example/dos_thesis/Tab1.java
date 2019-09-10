@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -35,15 +36,17 @@ public class Tab1 extends Fragment {
         rv.setHasFixedSize(false);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabaseRef = mDatabase.getReference().child("data");
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+        //FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        //DatabaseReference mDatabaseRef = mDatabase.getReference().child("data");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        Query query = ref.child("data").orderByChild("mag").startAt("4.0").limitToFirst(100);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 lData = new ArrayList<>();
                 if (dataSnapshot.exists()){
-                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
-                        ListData l = npsnapshot.getValue(ListData.class);
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        ListData l = ds.getValue(ListData.class);
                         lData.add(l);
                     }
                 }

@@ -1,37 +1,26 @@
 package com.example.dos_thesis;
 
 public class ListData {
-    private String datetime, latitude, location, longitude, magnitude;
+    private String datetime, location, mag;
 
-    public ListData () {
-
+    public ListData() {
     }
 
-    public ListData(String datetime, String latitude, String location, String longitude, String magnitude) {
+    public ListData(String datetime, String location, String mag) {
         this.datetime = datetime;
-        this.latitude = latitude;
         this.location = location;
-        this.longitude = longitude;
-        this.magnitude = magnitude;
+        this.mag = mag;
     }
 
     public String getDatetime() {
         return datetime;
     }
 
-    public String getLatitude() {
-        return latitude;
-    }
-
     public String getLocation() {
         return location;
     }
 
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public String getMagnitude() {
-        return magnitude;
+    public String getMag() {
+        return mag;
     }
 }

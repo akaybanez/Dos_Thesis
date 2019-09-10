@@ -26,14 +26,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtDate, txtLatitude, txtLocation, txtLongitude, txtMagnitude;
+        private TextView txtDate, txtLocation, txtMagnitude;
 
         public ViewHolder(View itemView) {
             super(itemView);
             txtDate = itemView.findViewById(R.id.datetimeTxt);
-            txtLatitude = itemView.findViewById(R.id.latitudeTxt);
             txtLocation= itemView.findViewById(R.id.locationTxt);
-            txtLongitude = itemView.findViewById(R.id.longitudeTxt);
             txtMagnitude = itemView.findViewById(R.id.magnitudeTxt);
         }
     }
@@ -56,10 +54,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull com.example.dos_thesis.MyAdapter.ViewHolder holder, int position) {
         ListData ld = listData.get(position);
         holder.txtDate.setText(ld.getDatetime());
-        holder.txtLatitude.setText(ld.getLatitude());
         holder.txtLocation.setText(ld.getLocation());
-        holder.txtLongitude.setText(ld.getLongitude());
-        holder.txtMagnitude.setText(ld.getMagnitude());
+        holder.txtMagnitude.setText(ld.getMag());
     }
 
 }
