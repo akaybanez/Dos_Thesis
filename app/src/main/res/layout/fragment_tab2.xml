@@ -22,5 +22,14 @@
             android:textSize="20dp" />
     </androidx.appcompat.widget.Toolbar>-->
 
+    <GridView
+        android:id="@+id/gv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:padding="10dp">
+
+    </GridView>
+
 
 </LinearLayout>
