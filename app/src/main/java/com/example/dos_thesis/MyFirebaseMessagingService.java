@@ -33,25 +33,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         sendNotification(notificationTitle, notificationBody);
     }
 
-
     private void sendNotification(String notificationTitle, String notificationBody) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                .setAutoCancel(true)   //Automatically delete the notification
-                .setSmallIcon(R.mipmap.ic_launcher) //Notification icon
-                .setContentIntent(pendingIntent)
+        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
+                getString(R.string.default_notification_channel_id))
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(notificationTitle)
                 .setContentText(notificationBody)
-                .setSound(defaultSoundUri);
+                .setAutoCancel(true)
+                .setSound(sound)
+                .setContentIntent(pendingIntent);
 
+        NotificationManager manager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0, notificationBuilder.build());
+        manager.notify(0, builder.build());
     }
 }
