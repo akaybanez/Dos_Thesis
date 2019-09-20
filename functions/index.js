@@ -15,13 +15,13 @@ exports.pushNotification = functions.database
   //  Grab the current value of what was written to the Realtime Database.
   //var valueObject = event.data.val();
 
-  const after = change.after.val;
+  const message = change.after.val;
 
   // Create a notification
     const payload = {
         notification: {
-            title: after.val.mag,
-            body: after.location || after.datetime,
+            title: "EARTHQUAKE",
+            body: message.mag || message.location,
             sound: "default"
         },
     };
@@ -32,6 +32,7 @@ exports.pushNotification = functions.database
         timeToLive: 60 * 60 * 24
     };
 
-
-    return admin.messaging().sendToTopic("pushNotification", payload, options);
-  });
+    return admin.messaging().sendToDevice("pushNotifications", payload, options).then(response => {
+      console.log('Notif sent');
+    });
+});

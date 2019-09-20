@@ -13,8 +13,7 @@ import androidx.fragment.app.Fragment;
 public class Tab3 extends Fragment {
 
     GridView simpleGrid;
-    int logos[] = {R.drawable.one, R.drawable.two, R.drawable.three, R.drawable.four,
-            R.drawable.five, R.drawable.six, R.drawable.seven, R.drawable.eight};
+    int logos[] = {R.drawable.one, R.drawable.two, R.drawable.three};
 
     @Nullable
     @Override
