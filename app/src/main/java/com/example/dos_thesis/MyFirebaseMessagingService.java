@@ -18,14 +18,21 @@ import java.util.Random;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d("MSG",remoteMessage.getNotification().getBody());
+        super.onMessageReceived(remoteMessage);
+        //Log.d("MSG",remoteMessage.getNotification().getBody());
+
         shownotification(remoteMessage.getNotification());
     }
 
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        Log.d("NEW_TOKEN",s);
+        Log.d("NEW_TOKEN", s);
+        sendRegistrationToServer(s);
+    }
+
+    private void sendRegistrationToServer(String token) {
+        // TODO: Implement this method to send token to your app server.
     }
 
     public void shownotification(RemoteMessage.Notification message){

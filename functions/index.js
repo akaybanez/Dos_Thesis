@@ -12,27 +12,42 @@ exports.pushNotification = functions.database
 
   console.log('Push notification event triggered');
 
+  var registrationToken = 'd0naH8qfDOQ:APA91bE-XZYuH5zrpZy18hCitF2JarktS6lAwWCgg99xqG1gSo0oKjV3jDyJ3pBGvziMegmUZriBTOB9ZzmUYsAtYu_KjJYB2B6MavyN9ot8oOHfd550dIIvcN5vCNV1InuLGnc_ie7e'; 
+
   //  Grab the current value of what was written to the Realtime Database.
   //var valueObject = event.data.val();
-
-  const message = change.after.val;
+  const oof = change.after.val;
+  var topic = 'pushNotifications';
 
   // Create a notification
-    const payload = {
-        notification: {
-            title: "EARTHQUAKE",
-            body: message.mag || message.location,
-            sound: "default"
-        },
-    };
+  let message = {
+    notification: {
+      title: 'EARTHQUAKE',
+      body: 'GIDDY UP YOOO',
+      //sound: "default"
+    },
+    topic: topic,
+  };
 
-  //Create an options object that contains the time to live for the notification and the priority
-    const options = {
+  var payload = {
+    notification: {
+      title: "change",
+      body: "test",
+    }
+  };
+
+  return admin.messaging().send(message)
+    .then((response) => {
+      // Response is a message ID string.
+      return console.log('Successfully sent message:', response);
+    })
+    .catch((error) => {
+      console.log('Error sending message:', error);
+  });
+
+    /*var options = {
         priority: "high",
         timeToLive: 60 * 60 * 24
-    };
+    };*/
 
-    return admin.messaging().sendToDevice("pushNotifications", payload, options).then(response => {
-      console.log('Notif sent');
-    });
 });
