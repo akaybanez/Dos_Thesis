@@ -128,7 +128,7 @@ public class MapActivity extends AppCompatActivity implements
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Inflate the layout with the the MapView. Always inflate this after the Mapbox access token is configured.
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.fragment_tab2);
 
         // Create a GeoJSON feature collection from the GeoJSON file in the assets folder.
         try {
