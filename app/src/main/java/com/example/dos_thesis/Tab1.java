@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,9 @@ public class Tab1 extends Fragment {
     private RecyclerView rv;
     private MyAdapter adapter;
 
+    String dataTitle, dataMessage;
+    EditText title, message;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class Tab1 extends Fragment {
         //FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         //DatabaseReference mDatabaseRef = mDatabase.getReference().child("data");
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        Query query = ref.child("data").orderByChild("mag").startAt("4.0").limitToFirst(100);
+        Query query = ref.child("data").orderByChild("datetime").limitToFirst(100);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
