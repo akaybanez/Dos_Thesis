@@ -14,6 +14,13 @@ public class Tab3 extends Fragment {
 
     GridView simpleGrid;
     int logos[] = {R.drawable.one, R.drawable.two, R.drawable.three};
+    String text[] = {
+            "Evacuate the building. Move to a safety area",
+            "Check for injuries",
+            "Check for fire and gas leak",
+            "Check for cracks in the walls",
+            "Tune in to local radio stations for reports"
+    };
 
     @Nullable
     @Override

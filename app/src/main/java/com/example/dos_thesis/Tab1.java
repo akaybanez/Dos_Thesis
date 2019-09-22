@@ -40,10 +40,8 @@ public class Tab1 extends Fragment {
         rv.setHasFixedSize(false);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        //DatabaseReference mDatabaseRef = mDatabase.getReference().child("data");
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        Query query = ref.child("data").orderByChild("datetime").limitToFirst(100);
+        Query query = ref.child("data").orderByChild("mag").limitToFirst(100);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

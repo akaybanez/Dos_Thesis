@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-        FirebaseMessaging.getInstance().subscribeToTopic("weather")
+        FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

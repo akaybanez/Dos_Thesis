@@ -4,36 +4,37 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-
 // Listens for new messages added to messages/:pushId
 exports.pushNotification = functions.database
-.ref('/{data}')
-.onWrite((change, context) => {
+.ref('/data/{pushId}')
+.onCreate((snapshot, context) => {
 
   console.log('Push notification event triggered');
 
-  var registrationToken = 'd0naH8qfDOQ:APA91bE-XZYuH5zrpZy18hCitF2JarktS6lAwWCgg99xqG1gSo0oKjV3jDyJ3pBGvziMegmUZriBTOB9ZzmUYsAtYu_KjJYB2B6MavyN9ot8oOHfd550dIIvcN5vCNV1InuLGnc_ie7e'; 
-
-  //  Grab the current value of what was written to the Realtime Database.
-  //var valueObject = event.data.val();
-  const oof = change.after.val;
+  var registrationToken = 'eNBDflUenzI:APA91bESAk_UslyFbQUVkUjcMtLjHym3w5C9jaLS4sKxNhzVEBvgAj0WlkfwoVVWzMGWEfO4MXoCy3pqXEE8z0tI-BTnvaJMPmND_n_jhH8fCaYUMlkXdDgRhjgV1ZeHAa2_KKFI30U5'; 
   var topic = 'pushNotifications';
 
   // Create a notification
-  let message = {
+  /*let message = {
     notification: {
       title: 'EARTHQUAKE',
       body: 'GIDDY UP YOOO',
       //sound: "default"
     },
     topic: topic,
-  };
+  };*/
 
-  var payload = {
+  var loc = snapshot.child('location').val();
+  var mag = snapshot.child('mag').val();
+  console.log(loc);
+  console.log(mag);
+
+  let message = {
     notification: {
-      title: "change",
-      body: "test",
-    }
+      title: 'EARTHQUAKE',
+      body: loc, mag,
+    },
+    topic: topic,
   };
 
   return admin.messaging().send(message)
