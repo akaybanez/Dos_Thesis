@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:mapbox="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map_activity_framelayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        tools:ignore="MissingPrefix"
         tools:context=".Tab2">
+
+   <!--tools:context="com.example.dos_thesis.activity.MapActivity">-->
 
    <!-- <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -22,7 +27,27 @@
             android:textSize="20dp" />
     </androidx.appcompat.widget.Toolbar>-->
 
+   <com.mapbox.mapboxsdk.maps.MapView
+       android:id="@+id/mapView"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_marginLeft="0dp"
+       android:layout_marginTop="0dp"
+       android:layout_marginRight="0dp"
+       android:layout_marginBottom="0dp"
+       mapbox:mapbox_cameraTargetLat="7.07"
+       mapbox:mapbox_cameraTargetLng="125.61"
+       mapbox:mapbox_cameraTilt="48"
+       mapbox:mapbox_cameraZoom="13"
+       mapbox:mapbox_cameraZoomMin="10"
+       mapbox:mapbox_uiAttribution="false" />
+
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/map_layout_rv"
+       android:layout_width="match_parent"
+       android:layout_height="222dp"
+       android:layout_gravity="bottom"
+       android:layout_marginBottom="30dp" />
 
 
-
-</LinearLayout>
+</FrameLayout>
