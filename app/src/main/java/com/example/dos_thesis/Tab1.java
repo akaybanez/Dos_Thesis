@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,8 +27,7 @@ public class Tab1 extends Fragment {
     private RecyclerView rv;
     private MyAdapter adapter;
 
-    String dataTitle, dataMessage;
-    EditText title, message;
+    private SearchView searchView;
 
     @Nullable
     @Override
@@ -36,12 +35,14 @@ public class Tab1 extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_tab1, container, false);
 
+        searchView = rootView.findViewById(R.id.searchView);
+
         rv = rootView.findViewById(R.id.recycle_view);
         rv.setHasFixedSize(false);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        Query query = ref.child("data").orderByChild("mag").limitToFirst(100);
+        Query query = ref.child("data").orderByKey().limitToFirst(100);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -63,7 +64,21 @@ public class Tab1 extends Fragment {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (adapter != null){
+                    adapter.getFilter().filter(newText);
+                }
+                return true;
+            }
+        });
+
         return rootView;
     }
-
 }

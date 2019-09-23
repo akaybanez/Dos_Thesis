@@ -36,7 +36,7 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.gv_cell, null); // inflate the layout
-        ImageView icon = view.findViewById(R.id.icon); // get the reference of ImageView
+        ImageView icon = view.findViewById(R.id.gv_image); // get the reference of ImageView
         icon.setImageResource(photos[i]); // set logo images
         return view;
     }

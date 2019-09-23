@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#008D1E1E"
     android:orientation="vertical"
     tools:context=".Tab1">
 
-   <!-- <androidx.appcompat.widget.Toolbar
+    <!-- <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,6 +22,15 @@
             android:textAlignment="center"
             android:textSize="20dp" />
     </androidx.appcompat.widget.Toolbar>-->
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search Magnitude, Date or Location" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view"

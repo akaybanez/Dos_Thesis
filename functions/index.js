@@ -11,7 +11,7 @@ exports.pushNotification = functions.database
 
   console.log('Push notification event triggered');
 
-  var registrationToken = 'eNBDflUenzI:APA91bESAk_UslyFbQUVkUjcMtLjHym3w5C9jaLS4sKxNhzVEBvgAj0WlkfwoVVWzMGWEfO4MXoCy3pqXEE8z0tI-BTnvaJMPmND_n_jhH8fCaYUMlkXdDgRhjgV1ZeHAa2_KKFI30U5'; 
+  var registrationToken = 'd0naH8qfDOQ:APA91bE-XZYuH5zrpZy18hCitF2JarktS6lAwWCgg99xqG1gSo0oKjV3jDyJ3pBGvziMegmUZriBTOB9ZzmUYsAtYu_KjJYB2B6MavyN9ot8oOHfd550dIIvcN5vCNV1InuLGnc_ie7e'; 
   var topic = 'pushNotifications';
 
   // Create a notification
@@ -32,7 +32,7 @@ exports.pushNotification = functions.database
   let message = {
     notification: {
       title: 'EARTHQUAKE',
-      body: loc, mag,
+      body: loc,
     },
     topic: topic,
   };
