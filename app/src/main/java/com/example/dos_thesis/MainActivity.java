@@ -36,16 +36,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        openDialog(3);
+
         FirebaseApp.initializeApp(this);
-        //FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
-        /*FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this,new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String newToken = instanceIdResult.getToken();
-                //Toast.makeText(MainActivity.this, newToken, Toast.LENGTH_SHORT).show();
-                Log.d(TAG, newToken);
-            }
-        });*/
 
         FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -61,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Dizappsta");
+        toolbar.setTitle("EQ App");
         setSupportActionBar(toolbar);
 
         tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("EQ Info"));
-        tabLayout.addTab(tabLayout.newTab().setText("Evac Map"));
-        tabLayout.addTab(tabLayout.newTab().setText("Guide"));
+        tabLayout.addTab(tabLayout.newTab().setText("PHIVOLCS EQ Data"));
+        tabLayout.addTab(tabLayout.newTab().setText("Map"));
+        tabLayout.addTab(tabLayout.newTab().setText("Safety Guide"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = findViewById(R.id.pager);
@@ -113,21 +106,27 @@ public class MainActivity extends AppCompatActivity {
 
         String[] text = {
                 "Click on the markers to route from your location to the evacuation site",
-                "This app is created by Maria Jonna Badenas and Alexandra Kate Ybanez"
+                "This app is created by Maria Jonna Badenas and Alexandra Kate Ybanez",
+                "1. Click on EQ Info to display earthquake data sourced from the PHIVOLCS' website \n" +
+                    "2. Click on Evac Map to display evacuation sites \n" +
+                    "3. Click on Guide to be informed about Earthquake safety guidelines"
         };
 
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.MyDialogTheme).create();
 
         TextView title = new TextView(this);
         title.setPadding(10, 10, 10, 10);
         title.setGravity(Gravity.CENTER);
-        title.setTextColor(Color.BLACK);
+        title.setTextColor(Color.WHITE);
         title.setTextSize(20);
         alertDialog.setCustomTitle(title);
 
         // Set Message
         TextView msg = new TextView(this);
-        // Message Properties
+        msg.setTextSize(16);
+        msg.setTextColor(Color.WHITE);
+        title.setPadding(10, 10, 10, 10);
+
         if(option == 1) {
             title.setText("INFO");
             msg.setText(text[0]);
@@ -136,22 +135,24 @@ public class MainActivity extends AppCompatActivity {
             title.setText("ABOUT");
             msg.setText(text[1]);
         }
+        if(option == 3) {
+            title.setText("INSTRUCTIONS");
+            msg.setText(text[2]);
+        }
 
-        msg.setGravity(Gravity.CENTER_HORIZONTAL);
-        msg.setTextColor(Color.BLACK);
+        msg.setGravity(Gravity.LEFT);
+        msg.setTextColor(Color.WHITE);
         alertDialog.setView(msg);
 
-        // Set Button
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                // Perform Action on Button
+
             }
         });
 
         new Dialog(getApplicationContext());
         alertDialog.show();
 
-        // Set Properties for OK Button
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); //create a new one
         layoutParams.weight = 1;
         layoutParams.gravity = Gravity.CENTER; //this is layout_gravity

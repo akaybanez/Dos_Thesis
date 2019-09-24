@@ -44,7 +44,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             super(itemView);
             txtDate = itemView.findViewById(R.id.datetimeTxt);
             txtLocation= itemView.findViewById(R.id.locationTxt);
-            txtMagnitude = itemView.findViewById(R.id.magnitudeTxt);
+            txtMagnitude = itemView.findViewById(R.id.magTxt);
+
         }
     }
 

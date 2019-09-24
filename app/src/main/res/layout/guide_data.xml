@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <GridView
         android:id="@+id/simpleGridView"
         android:layout_width="match_parent"
@@ -14,14 +13,15 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         app:cardElevation="5dp"
-        app:contentPadding="5dp" >
+        app:contentPadding="5dp"
+        app:cardBackgroundColor="@color/card">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/txt1"
@@ -29,17 +29,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:textAlignment="center"
-                android:textColor="#000000"/>
+                android:textColor="#181C20"
+                android:gravity="center_horizontal"/>
 
             <TextView
                 android:id="@+id/txt2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textAlignment="center"
+                android:textSize="18dp"
                 android:text="Info 2"
-                android:textColor="#000000"/>
+                android:textColor="#181C20"
+                android:gravity="center_horizontal"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

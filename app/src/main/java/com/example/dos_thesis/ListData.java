@@ -4,6 +4,7 @@ public class ListData {
     private String datetime, location, mag;
 
     public ListData() {
+
     }
 
     public ListData(String datetime, String location, String mag) {

@@ -37,13 +37,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public void shownotification(RemoteMessage.Notification message){
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "com.example.dos_thesis"; //your app package name
+        String NOTIFICATION_CHANNEL_ID = "com.example.dos_thesis";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Notification",
                     NotificationManager.IMPORTANCE_DEFAULT);
 
-            notificationChannel.setDescription("Techrush Channel");
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.BLUE);
             notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});

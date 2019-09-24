@@ -18,9 +18,11 @@ public class Tab3 extends Fragment {
     GridView simpleGrid;
     int images[] = {R.drawable.drop, R.drawable.cover, R.drawable.hold};
 
-    private RecyclerView rv_guide;
+    //private RecyclerView rv_before;
+    private RecyclerView rv;
     private GuideAdapter adapter;
     private ArrayList<GuideSteps> guideStepsArrayList;
+    //private ArrayList<GuideSteps> afterArrayList;
 
     @Nullable
     @Override
@@ -32,18 +34,24 @@ public class Tab3 extends Fragment {
         CustomAdapter customAdapter = new CustomAdapter(getContext(), images);
         simpleGrid.setAdapter(customAdapter);
 
-        rv_guide = rootView.findViewById(R.id.rv_guide);
-        rv_guide.setHasFixedSize(false);
-        rv_guide.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv = rootView.findViewById(R.id.rv);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         guideStepsArrayList = new ArrayList<>();
+        guideStepsArrayList.add(new GuideSteps("PREPARING FOR AN EARTHQUAKE", " "));
+        guideStepsArrayList.add(new GuideSteps("Be familiar with dangerous spots inside offices/rooms", " "));
+        guideStepsArrayList.add(new GuideSteps("Fix objects that may cause harm during an earthquake", "Faulty wiring, leaky gas connection, etc."));
+        guideStepsArrayList.add(new GuideSteps("Identify safe places indoors and outdoors", "Refer to map"));
+        guideStepsArrayList.add(new GuideSteps("Have a stock of emergency supplies", " "));
+        guideStepsArrayList.add(new GuideSteps("Have an evacuation & reunion plan", " "));
+        guideStepsArrayList.add(new GuideSteps("AFTER AN EARTHQUAKE", ""));
         guideStepsArrayList.add(new GuideSteps("Evacuate the building", "Move to a safety area"));
         guideStepsArrayList.add(new GuideSteps("Check for injuries", " "));
         guideStepsArrayList.add(new GuideSteps("Check for:", "Fire and Gas Leaks, Cracks in the walls"));
         guideStepsArrayList.add(new GuideSteps("Tune in to local radio stations for reports", " "));
 
         adapter = new GuideAdapter(guideStepsArrayList);
-        rv_guide.setAdapter(adapter);
+        rv.setAdapter(adapter);
 
         return rootView;
     }
