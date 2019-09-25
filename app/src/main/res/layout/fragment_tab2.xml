@@ -27,27 +27,15 @@
             android:textSize="20dp" />
     </androidx.appcompat.widget.Toolbar>-->
 
-   <com.mapbox.mapboxsdk.maps.MapView
-       android:id="@+id/mapView"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_marginLeft="0dp"
-       android:layout_marginTop="0dp"
-       android:layout_marginRight="0dp"
-       android:layout_marginBottom="0dp"
-       mapbox:mapbox_cameraTargetLat="7.07"
-       mapbox:mapbox_cameraTargetLng="125.61"
-       mapbox:mapbox_cameraTilt="48"
-       mapbox:mapbox_cameraZoom="13"
-       mapbox:mapbox_cameraZoomMin="10"
-       mapbox:mapbox_uiAttribution="false" />
 
-   <android.support.v7.widget.RecyclerView
-       android:id="@+id/map_layout_rv"
-       android:layout_width="match_parent"
-       android:layout_height="222dp"
-       android:layout_gravity="bottom"
-       android:layout_marginBottom="30dp" />
-
-
+   <Button
+       android:id="@+id/mapBtn"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"
+       android:textSize="30dp"
+       android:textColor="#ffffff"
+       android:padding="10dp"
+       android:text="CLICK FOR MAP"
+       android:background="#BBBBBB"/>
 </FrameLayout>

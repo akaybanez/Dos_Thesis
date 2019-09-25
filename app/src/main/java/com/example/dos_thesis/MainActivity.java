@@ -112,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
     public void openDialog(int option) {
 
         String[] text = {
-                "Click on the markers to route from your location to the evacuation site",
+                "1. Earthquake data is sourced from the PHIVOLCS website \n" +
+                        "2. Safety Guide is from the DRRMO",
                 "This app is created by Maria Jonna Badenas and Alexandra Kate Ybanez"
         };
 

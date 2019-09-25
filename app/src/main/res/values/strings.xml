@@ -1,5 +1,7 @@
 <resources>
     <string name="final_app_name">M_Thesis</string>
+    <string name="msg_subscribed">Success</string>
+    <string name="msg_subscribe_failed">Failure</string>
     <string name="access_token" translatable="false">pk.eyJ1IjoiaW1hanVubmFzaG9vbiIsImEiOiJjang5M2hwbTEwcG1tM3hqeXpqN2dzM2tqIn0.KbrxL51rvc7a3jl8LRBi2w</string>
     <string name="purple_map_style" translatable="false">mapbox://styles/mapbox/cj7bww7is2f4i2rnwyxkzpwu7</string>
     <string name="blue_map_style" translatable="false">mapbox://styles/mapbox/cj7bwwv3caf7l2spgukxm8bwv</string>

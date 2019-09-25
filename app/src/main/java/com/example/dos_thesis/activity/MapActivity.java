@@ -156,9 +156,7 @@ public class MapActivity extends AppCompatActivity implements
                 Feature singleLocation = featureList.get(x);
 
                 String singleLocationName = singleLocation.getStringProperty("name");
-                String singleLocationHours = singleLocation.getStringProperty("hours");
                 String singleLocationDescription = singleLocation.getStringProperty("description");
-                String singleLocationPhoneNum = singleLocation.getStringProperty("phone");
 
                 singleLocation.addBooleanProperty(PROPERTY_SELECTED, false);
 
@@ -170,8 +168,6 @@ public class MapActivity extends AppCompatActivity implements
                 listOfIndividualLocations.add(new IndividualLocation(
                   singleLocationName,
                   singleLocationDescription,
-                  singleLocationHours,
-                  singleLocationPhoneNum,
                   singleLocationLatLng
 
                 ));
@@ -243,10 +239,9 @@ public class MapActivity extends AppCompatActivity implements
    */
   @Override
   public void onItemClick(int position) {
-    // Get the selected individual location via its card's position in the recyclerview of cards
     IndividualLocation selectedLocation = listOfIndividualLocations.get(position);
 
-    // Evaluate each Feature's "select state" to appropriately style the location's icon
+
     List<Feature> featureList = featureCollection.features();
     Point selectedLocationPoint = (Point) featureCollection.features().get(position).geometry();
     for (int i = 0; i < featureList.size(); i++) {
@@ -261,12 +256,10 @@ public class MapActivity extends AppCompatActivity implements
       }
     }
 
-    // Reposition the map camera target to the selected marker
     if (selectedLocation != null) {
       repositionMapCamera(selectedLocationPoint);
     }
 
-    // Check for an internet connection before making the call to Mapbox Directions API
     if (deviceHasInternetConnection()) {
       // Start call to the Mapbox Directions API
       if (selectedLocation != null) {
@@ -277,9 +270,7 @@ public class MapActivity extends AppCompatActivity implements
     }
   }
 
-  /**
-   * Adds a SymbolLayer which will show all of the location's icons
-   */
+
   private void initStoreLocationIconSymbolLayer() {
     Style style = mapboxMap.getStyle();
     if (style != null) {
@@ -307,9 +298,7 @@ public class MapActivity extends AppCompatActivity implements
     }
   }
 
-  /**
-   * Adds a SymbolLayer which will show the selected location's icon
-   */
+
   private void initSelectedStoreSymbolLayer() {
     Style style = mapboxMap.getStyle();
     if (style != null) {
@@ -366,7 +355,6 @@ public class MapActivity extends AppCompatActivity implements
     refreshSource();
   }
 
-
   /**
    * Updates the display of data on the map after the FeatureCollection has been modified
    */
@@ -380,14 +368,14 @@ public class MapActivity extends AppCompatActivity implements
   private void getInformationFromDirectionsApi(Point destinationPoint,
                                                final boolean fromMarkerClick, @Nullable final Integer listIndex) {
     // Set up origin and destination coordinates for the call to the Mapbox Directions API
-    Point mockCurrentLocation = Point.fromLngLat(DEVICE_LOCATION_LAT_LNG.getLongitude(),
+    Point CurrentLocation = Point.fromLngLat(DEVICE_LOCATION_LAT_LNG.getLongitude(),
       DEVICE_LOCATION_LAT_LNG.getLatitude());
 
     Point destinationMarker = Point.fromLngLat(destinationPoint.longitude(), destinationPoint.latitude());
 
     // Initialize the directionsApiClient object for eventually drawing a navigation route on the map
     MapboxDirections directionsApiClient = MapboxDirections.builder()
-      .origin(mockCurrentLocation)
+      .origin(CurrentLocation)
       .destination(destinationMarker)
       .overview(DirectionsCriteria.OVERVIEW_FULL)
       .profile(DirectionsCriteria.PROFILE_CYCLING) //default 'DRIVING' changed to 'CYCLING'
@@ -443,14 +431,14 @@ public class MapActivity extends AppCompatActivity implements
     Style style = mapboxMap.getStyle();
     if (style != null) {
       // Add the icon image to the map
-      style.addImage("mock-device-location-icon-id", customThemeManager.getLocationIcon());
+      style.addImage("device-location-icon-id", customThemeManager.getLocationIcon());
 
-      style.addSource(new GeoJsonSource("mock-device-location-source-id", Feature.fromGeometry(
+      style.addSource(new GeoJsonSource("device-location-source-id", Feature.fromGeometry(
         Point.fromLngLat(DEVICE_LOCATION_LAT_LNG.getLongitude(), DEVICE_LOCATION_LAT_LNG.getLatitude()))));
 
-      style.addLayer(new SymbolLayer("mock-device-location-layer-id",
-        "mock-device-location-source-id").withProperties(
-        iconImage("mock-device-location-icon-id"),
+      style.addLayer(new SymbolLayer("device-location-layer-id",
+        "device-location-source-id").withProperties(
+        iconImage("device-location-icon-id"),
         iconAllowOverlap(true),
         iconIgnorePlacement(true)
       ));

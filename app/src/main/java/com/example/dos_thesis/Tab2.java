@@ -1,17 +1,27 @@
 package com.example.dos_thesis;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.PointF;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class Tab2 extends Fragment {
+import com.example.dos_thesis.activity.MapActivity;
 
 
+public class Tab2 extends Fragment{
 
     @Nullable
     @Override
@@ -19,8 +29,17 @@ public class Tab2 extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_tab2, container, false);
 
-        Toast.makeText(getContext(), "Swipe left", Toast.LENGTH_SHORT).show();
+        Button mapBtn = rootView.findViewById(R.id.mapBtn);
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
         return rootView;
     }
+
+
 }
