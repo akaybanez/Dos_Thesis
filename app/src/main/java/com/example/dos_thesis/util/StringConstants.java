@@ -5,6 +5,6 @@ package com.example.dos_thesis.util;
  */
 public class StringConstants {
 
-    public static final String SELECTED_THEME = "SELECTED THEME";
+  public static final String SELECTED_THEME = "SELECTED THEME";
 
 }
