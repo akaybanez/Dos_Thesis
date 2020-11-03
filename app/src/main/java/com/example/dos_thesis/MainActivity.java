@@ -1,42 +1,76 @@
 package com.example.dos_thesis;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
-  // Firebase variables
-    /*private List<ListData> lData;
-    private RecyclerView rv;
-    private MyAdapter adapter;*/
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    private static final String TAG = "Token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseMessaging.getInstance().subscribeToTopic("pushNotification");
+        FirebaseApp.initializeApp(this);
+        //FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
+        /*FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this,new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String newToken = instanceIdResult.getToken();
+                //Toast.makeText(MainActivity.this, newToken, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, newToken);
+            }
+        });*/
 
-        //ViewPager viewPager = findViewById(R.id.view_pager);
-        //viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        FirebaseMessaging.getInstance().subscribeToTopic("weather")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = getString(R.string.msg_subscribed);
+                        if (!task.isSuccessful()) {
+                            msg = getString(R.string.msg_subscribe_failed);
+                        }
+                        Log.d(TAG, msg);
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Dizappsta");
         setSupportActionBar(toolbar);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
+        tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("EQ Info"));
-        tabLayout.addTab(tabLayout.newTab().setText("Map"));
+        tabLayout.addTab(tabLayout.newTab().setText("Evac Map"));
         tabLayout.addTab(tabLayout.newTab().setText("Guide"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final ViewPager viewPager = findViewById(R.id.pager);
+
+        viewPager = findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -52,33 +86,77 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+    }
 
-        /*rv = findViewById(R.id.recycle_view);
-        rv.setHasFixedSize(false);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return true;
+    }
 
-        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabaseRef = mDatabase.getReference().child("data");
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                lData = new ArrayList<>();
-                if (dataSnapshot.exists()){
-                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
-                        ListData l = npsnapshot.getValue(ListData.class);
-                        lData.add(l);
-                    }
-                }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-                adapter = new MyAdapter(lData);
-                rv.setAdapter(adapter);
+        switch(item.getItemId()){
+            case R.id.menuInfo:
+                openDialog(1);
+                break;
+            case R.id.menuAbout:
+                openDialog(2);
+                break;
+        }
+        return true;
+    }
+
+    public void openDialog(int option) {
+
+        String[] text = {
+                "1. Earthquake data is sourced from the PHIVOLCS website \n" +
+                        "2. Safety Guide is from the DRRMO",
+                "This app is created by Maria Jonna Badenas and Alexandra Kate Ybanez"
+        };
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        TextView title = new TextView(this);
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(20);
+        alertDialog.setCustomTitle(title);
+
+        // Set Message
+        TextView msg = new TextView(this);
+        // Message Properties
+        if(option == 1) {
+            title.setText("INFO");
+            msg.setText(text[0]);
+        }
+        if(option == 2) {
+            title.setText("ABOUT");
+            msg.setText(text[1]);
+        }
+
+        msg.setGravity(Gravity.CENTER_HORIZONTAL);
+        msg.setTextColor(Color.BLACK);
+        alertDialog.setView(msg);
+
+        // Set Button
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Perform Action on Button
             }
+        });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        new Dialog(getApplicationContext());
+        alertDialog.show();
 
-            }
-        });*/
+        // Set Properties for OK Button
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); //create a new one
+        layoutParams.weight = 1;
+        layoutParams.gravity = Gravity.CENTER; //this is layout_gravity
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setLayoutParams(layoutParams);
 
     }
 
